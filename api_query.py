@@ -1,32 +1,28 @@
 import requests
-import ast
-from requests.auth import AuthBase
 
-class TokenAuth(AuthBase):
-    """Implements a custom authentication scheme."""
+# curl2python: https://curl.trillworks.com/#python
 
-    def __init__(self, token):
-        self.token = token
-
-    def __call__(self, r):
-        """Attach an API token to a custom auth header."""
-        r.headers['X-TokenAuth'] = f'{self.token}'  # Python 3.6+
-        return r
-
-
+#login
 url = 'https://api.onboarddata.io/login/api-key'
 key = "ob-p-VJqnaGrdsEX4LS9LOxdG2a-4sHnVAlVC976lnOnr9Lq8eLbIMff66HCa6IgT0XdSC-s"
 r = requests.post(url, {"key": key})
-# r_dict = ast.literal_eval(r.text)
-# access_toke = r_dict['access_token']
 
+# get list of buildings
 headers = {
     'accept': 'application/json',
     'X-OB-Api': key
 }
+building_url = 'https://api.onboarddata.io/buildings'
+building_list = requests.get(building_url, headers=headers)
 
-burl = 'https://api.onboarddata.io/buildings'
-r2 = requests.get(burl, headers=headers)
+# get equipment by building
+params = (
+    ('points', 'true'),
+    ('datasource_hashes', '\'5ca742e59ac6fcfb47ce1438f2c04bf9\''),
+    ('no_data', 'true'),
+)
+equipment_list = requests.get('https://api.onboarddata.io/buildings/38/equipment?points=true', headers=headers)
 
-
+# get points by building_id
+response = requests.get('https://api.onboarddata.io/buildings/38/points?no_data=true', headers=headers)
 
