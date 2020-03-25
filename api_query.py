@@ -1,6 +1,7 @@
 import requests
 from requests.auth import AuthBase
 
+# working with onboard data access
 # {'result': 'ok', 'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdXRoX2xldmVsIjozLCJzY29wZXMiOlsiYnVpbGRpbmdzOnJlYWQiLCJhdXRoIiwiYWRtaW4iLCJnZW5lcmFsIiwiaW5nZXN0IiwidWkiXSwibG9nZ2VkX2luIjp0cnVlLCJzdWIiOjExMiwiaWF0IjoxNTg1MDk0MjI5LCJleHAiOjE1ODUyMzgyMjl9.lnHyCT2Xi9V1qsmQlsQjH-IoPpRgoKEGsak93OxW2Knhopu2YfEZVQMCCxueRibvWXjdqmuVwb9NajllZRhLIw', 'token_type': 'bearer', 'userInfo': {'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdXRoX2xldmVsIjozLCJzY29wZXMiOlsiYnVpbGRpbmdzOnJlYWQiLCJhdXRoIiwiYWRtaW4iLCJnZW5lcmFsIiwiaW5nZXN0IiwidWkiXSwibG9nZ2VkX2luIjp0cnVlLCJzdWIiOjExMiwiaWF0IjoxNTg1MDk0MjI5LCJleHAiOjE1ODUyMzgyMjl9.lnHyCT2Xi9V1qsmQlsQjH-IoPpRgoKEGsak93OxW2Knhopu2YfEZVQMCCxueRibvWXjdqmuVwb9NajllZRhLIw', 'scopes': ['buildings:read', 'auth', 'admin', 'general', 'ingest', 'ui']}}
 
 class TokenAuth(AuthBase):
