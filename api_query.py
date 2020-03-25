@@ -1,8 +1,6 @@
 import requests
+import ast
 from requests.auth import AuthBase
-
-# working with onboard data access
-# {'result': 'ok', 'access_token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdXRoX2xldmVsIjozLCJzY29wZXMiOlsiYnVpbGRpbmdzOnJlYWQiLCJhdXRoIiwiYWRtaW4iLCJnZW5lcmFsIiwiaW5nZXN0IiwidWkiXSwibG9nZ2VkX2luIjp0cnVlLCJzdWIiOjExMiwiaWF0IjoxNTg1MDk0MjI5LCJleHAiOjE1ODUyMzgyMjl9.lnHyCT2Xi9V1qsmQlsQjH-IoPpRgoKEGsak93OxW2Knhopu2YfEZVQMCCxueRibvWXjdqmuVwb9NajllZRhLIw', 'token_type': 'bearer', 'userInfo': {'token': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdXRoX2xldmVsIjozLCJzY29wZXMiOlsiYnVpbGRpbmdzOnJlYWQiLCJhdXRoIiwiYWRtaW4iLCJnZW5lcmFsIiwiaW5nZXN0IiwidWkiXSwibG9nZ2VkX2luIjp0cnVlLCJzdWIiOjExMiwiaWF0IjoxNTg1MDk0MjI5LCJleHAiOjE1ODUyMzgyMjl9.lnHyCT2Xi9V1qsmQlsQjH-IoPpRgoKEGsak93OxW2Knhopu2YfEZVQMCCxueRibvWXjdqmuVwb9NajllZRhLIw', 'scopes': ['buildings:read', 'auth', 'admin', 'general', 'ingest', 'ui']}}
 
 class TokenAuth(AuthBase):
     """Implements a custom authentication scheme."""
@@ -17,11 +15,18 @@ class TokenAuth(AuthBase):
 
 
 url = 'https://api.onboarddata.io/login/api-key'
-toke = "ob-p-VJqnaGrdsEX4LS9LOxdG2a-4sHnVAlVC976lnOnr9Lq8eLbIMff66HCa6IgT0XdSC-s"
-r = requests.post(url, {"key": toke})
+key = "ob-p-VJqnaGrdsEX4LS9LOxdG2a-4sHnVAlVC976lnOnr9Lq8eLbIMff66HCa6IgT0XdSC-s"
+r = requests.post(url, {"key": key})
+# r_dict = ast.literal_eval(r.text)
+# access_toke = r_dict['access_token']
 
+headers = {
+    'accept': 'application/json',
+    'X-OB-Api': key
+}
 
 burl = 'https://api.onboarddata.io/buildings'
-r2 = requests.get(burl, {"key": toke})
+r2 = requests.get(burl, headers=headers)
+
 
 
